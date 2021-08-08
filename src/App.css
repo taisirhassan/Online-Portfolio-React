@@ -1,22 +1,7 @@
 body {
-  background-color: white;
+  background-color: #24252a;
   margin: 0;
 }
 
-h1 {
-  color: blue;
-  text-align: center;
-  font-size: 40px;
-}
 
-h2 {
-  color: brown;
-  text-align: center;
-  font-size: 40px;
-}
 
-p {
-  font-family: verdana;
-  font-size: 20px;
-  text-align: center;
-}

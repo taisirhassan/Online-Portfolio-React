@@ -1,18 +1,21 @@
 function Navbar() {
   return (
-    <div class="header-container">
-      <div class="navbar-header" id="navbar-header">
-        <a class="navbar-text"> Taisir Hassan</a>
-        <a class="app-header" href="default.asp">
-          Home
-        </a>
-        <a class="app-header" href="about.asp">
-          About
-        </a>
-        <a class="app-header" href="projects.asp">
-          Projects
-        </a>
-      </div>
+    <div class="navbar-header">
+      <h1>Taisir Hassan</h1>
+      <nav>
+        <ul class="nav__links">
+          <li>
+            <a href="#">Home</a>
+          </li>
+          <li>
+            <a href="#">Projects</a>
+          </li>
+          <li>
+            <a href="#">About</a>
+          </li>
+        </ul>
+      </nav>
+      <a class="cta">GitHub</a>
     </div>
   );
 }
