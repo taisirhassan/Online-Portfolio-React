@@ -10,9 +10,6 @@ function Navbar() {
           <li>
             <a href="#">Projects</a>
           </li>
-          <li>
-            <a href="#">About</a>
-          </li>
         </ul>
       </nav>
       <a class="cta">GitHub</a>

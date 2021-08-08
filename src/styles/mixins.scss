@@ -1,0 +1,8 @@
+@mixin section_name() {
+  font-size: 25px;
+  margin-bottom: 20px;
+  color: $dark_blue;
+  border-bottom: 1px solid red;
+  width: fit-content;
+  padding: 10px;
+}

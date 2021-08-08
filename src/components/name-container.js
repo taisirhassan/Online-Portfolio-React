@@ -2,9 +2,11 @@ function Namecontainer() {
   return (
     <div class="name-container" id="namer-container">
       <h3 class="name-header">
-        {" "}
-        My Name is Taisir Hassan and I am an Aspiring Computer Engineer
-        currently a student at the University of Waterloo!
+        My Name is <i>Taisir Hassan</i>
+        <p>
+          I am an Aspiring Computer Engineer currently a student at the
+          University of Waterloo!
+        </p>
       </h3>
       <div class="buttons">
         <button class="email">Email Me</button>

@@ -14,13 +14,21 @@ h1 {
 }
 
 .navbar-header {
+  top: 0;
+  position: fixed;
   width: 100%;
+  background-color: #24252a;
   display: flex;
   justify-content: space-between;
   align-items: center;
   padding: 30px 10%;
-  background-color: #24252a;
   border-bottom: solid 1px white;
+}
+@media (max-width: 600px) {
+  .navbar-header {
+    font-size: 15px;
+    padding: 15px;
+  }
 }
 
 .logo {
@@ -55,9 +63,9 @@ h1 {
 }
 
 .cta {
-  color: white;
+  color: $text_color;
   padding: 9px 25px;
-  background-color: rgba(0, 136, 169, 1);
+  background-image: linear-gradient(180deg, $light_blue, $dark_blue);
   border: none;
   border-radius: 50px;
   cursor: pointer;
