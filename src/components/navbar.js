@@ -8,12 +8,12 @@ function Navbar() {
             <a href="#">Home</a>
           </li>
           <li>
-            <a href="#">Projects</a>
+            <a href="#projects-container">Projects</a>
           </li>
         </ul>
       </nav>
-      <a class="cta">GitHub</a>
-    </div>
+     <a href= "https://github.com/416tz"> <button class="cta"> GitHub </button></a>
+     </div>
   );
 }
 export default Navbar;
