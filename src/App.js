@@ -14,6 +14,7 @@ function App() {
       <DarkMode />
       <Technologies />
       <Projects />
+      <Footer />
     </div>
   );
 }
