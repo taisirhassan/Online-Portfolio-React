@@ -1,7 +1,7 @@
 .projects-container {
   height: 400px;
   display: flex;
-  color: white;
+  color: $custom_black;
   flex-wrap: wrap;
 }
 .title {
@@ -21,7 +21,7 @@
   width: 300px;
   h3 {
     color: $dark_blue;
-    font-size: 15px;
+    font-size: 20px;
   }
 }
 @media (max-width: 600px) {
@@ -41,9 +41,9 @@
   list-style: none;
   padding: 20px;
   font-family: verdana;
-  font-size: 15px;
+  font-size: 18px;
   li {
-    margin-top: 5px;
+    margin-top: 15px;
   }
 }
 .project-description li::before {
@@ -53,4 +53,23 @@
   display: inline-block; /* Needed to add space between the bullet and the text */
   width: 1em; /* Also needed for space (tweak if needed) */
   margin-left: -1em; /* Also needed for space (tweak if needed) */
+}
+
+.carousel .slider-wrapper.axis-horizontal .slider .slide {
+  flex-direction: column;
+  flex-flow: column;
+  align-items: center;
+  justify-content: center;
+  display: flex;
+}
+
+.carousel .control-dots .dot {
+  background: #303030;
+}
+
+.carousel .control-prev.control-arrow:before {
+  border-right: 8px solid $custom_black;
+}
+.carousel .control-next.control-arrow:before {
+  border-left: 8px solid $custom_black;
 }

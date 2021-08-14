@@ -9,8 +9,16 @@ function Namecontainer() {
         </p>
       </h3>
       <div class="buttons">
-      <a href= "mailto:t28hassa@uwaterloo.ca"> <button class="email"> Email Me </button> </a> 
-      <a href= "https://documentcloud.adobe.com/link/review?uri=urn:aaid:scds:US:62b0da08-1e97-4ba1-a97e-6a630b329e27"> <button class="Resume">Resume</button> </a>
+        <a href="mailto:t28hassa@uwaterloo.ca" class="email">
+          {" "}
+          Email Me{" "}
+        </a>
+        <a
+          href="https://documentcloud.adobe.com/link/review?uri=urn:aaid:scds:US:62b0da08-1e97-4ba1-a97e-6a630b329e27"
+          class="Resume"
+        >
+          Resume{" "}
+        </a>
       </div>
     </div>
   );

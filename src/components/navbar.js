@@ -12,8 +12,11 @@ function Navbar() {
           </li>
         </ul>
       </nav>
-     <a href= "https://github.com/416tz"> <button class="cta"> GitHub </button></a>
-     </div>
+      <a href="https://github.com/416tz" class="cta">
+        {" "}
+        GitHub
+      </a>
+    </div>
   );
 }
 export default Navbar;

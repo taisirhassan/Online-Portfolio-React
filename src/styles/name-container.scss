@@ -1,8 +1,6 @@
-root {
-  --black: #24252a;
-  --white: rgb(236, 236, 236);
+.name-header i {
+  color: $dark_blue;
 }
-
 
 .name-container {
   margin-top: 150px;
@@ -24,8 +22,7 @@ root {
   font-size: 30px;
   width: 500px;
   margin: 0 auto;
-  color: w
-  i {
+  color: w i {
     color: $dark_blue;
     margin: 0%;
     padding: 0;
@@ -38,8 +35,10 @@ root {
 }
 
 .email {
+  text-decoration: none;
   display: flex;
   flex-direction: column;
+  text-decoration: none;
   color: rgb(0, 0, 0);
   padding: 15px 25px;
   font-size: 20px;
@@ -55,12 +54,13 @@ root {
 }
 .Resume {
   display: flex;
+  border: solid 2px $custom_black;
   flex-direction: column;
+  text-decoration: none;
   color: black;
   padding: 15px 25px;
   font-size: 20px;
   background-color: white;
-  border: none;
   border-radius: 10px;
   cursor: pointer;
   transition: background-color 0.3s ease 0s;

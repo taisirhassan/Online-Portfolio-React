@@ -1,0 +1,13 @@
+.footer-container {
+  width: 100%;
+  padding: 30px;
+  position: absolute;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: $dark_blue;
+  h5 {
+    color: black;
+  }
+}
