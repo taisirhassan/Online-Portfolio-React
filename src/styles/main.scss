@@ -1,7 +1,297 @@
-@import "./variables.scss";
-@import "./mixins.scss";
-@import "./name-container.scss";
-@import "./navbar.scss";
-@import "./projects.scss";
-@import "./technologies.scss";
-@import "./footer.scss";
+@use 'variables' as *;
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: $font-sans;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+}
+
+.terminal {
+    font-family: $font-mono;
+    min-height: 100vh;
+    transition: background-color $transition-speed $transition-timing;
+
+    &.dark {
+        background-color: $color-bg-dark;
+        color: $color-text-dark;
+    }
+
+    &.light {
+        background-color: $color-bg-light;
+        color: $color-text-light;
+        a {
+                color: $color-accent;
+        
+                &:hover {
+                    color: lighten($color-accent, 20%);
+                }
+            }
+                        .matrix-rain {
+                            opacity: 0.3;
+                        }
+            
+                        .project-card {
+                            background-color: rgba($color-bg-light, 0.8);
+                            border: 1px solid rgba($color-text-light, 0.1);
+            
+                            &:hover {
+                                background-color: rgba($color-bg-light, 0.95);
+                            }
+                        }
+                        }
+
+    &__container {
+        position: relative;
+        z-index: 10;
+        max-width: 1200px;
+        margin: 0 auto;
+        padding: 1rem;
+
+        @media (min-width: $breakpoint-sm) {
+            padding: 2rem;
+        }
+    }
+
+    &__content {
+        padding: 2rem 0;
+    }
+
+    &__footer {
+        text-align: center;
+        padding: 2rem 0;
+        border-top: 1px solid rgba($color-text-dark, 0.1);
+        margin-top: 4rem;
+    }
+}
+
+// Utility classes
+.mono {
+    font-family: $font-mono;
+}
+
+.fade-in {
+    animation: fadeIn 0.5s ease-out;
+}
+
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+        transform: translateY(10px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.contact {
+    margin: 2rem 0;
+
+    &__grid {
+        display: flex;
+        flex-direction: column;
+        gap: 1rem;
+        margin-bottom: 2rem;
+    }
+
+    &__item {
+        display: flex;
+        align-items: center;
+        gap: 0.75rem;
+        padding: 0.5rem;
+    }
+
+    &__social {
+        display: flex;
+        justify-content: center;
+        gap: 1.5rem;
+    }
+}
+
+.about {
+    margin-bottom: 3rem;
+
+    &__name {
+        font-size: 2.5rem;
+        font-weight: 600;
+        margin-bottom: 0.5rem;
+        color: $color-primary;
+    }
+
+    &__role {
+        font-size: 1.25rem;
+        margin-bottom: 0.5rem;
+        opacity: 0.9;
+    }
+
+    &__current {
+        font-size: 1.1rem;
+        margin-bottom: 1.5rem;
+        opacity: 0.8;
+    }
+
+    &__links {
+        display: flex;
+        gap: 1.5rem;
+        margin-top: 1rem;
+    }
+
+    &__link {
+        display: flex;
+        align-items: center;
+        gap: 0.5rem;
+        color: $color-accent;
+        transition: color 0.2s ease;
+
+        &:hover {
+            color: lighten($color-accent, 10%);
+        }
+    }
+}
+
+.experience {
+    display: grid;
+    gap: 1.5rem;
+
+    .project-card {
+        margin: 0; // Remove default margin
+
+        &__title {
+            margin-bottom: 0.5rem;
+        }
+
+        &__tech {
+            opacity: 0.8;
+            margin-bottom: 0.75rem;
+        }
+    }
+}
+
+.contact {
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+    margin: 2rem 0;
+
+    &__item {
+        display: flex;
+        align-items: center;
+        gap: 1rem;
+        font-size: 1.1rem;
+        color: $color-text-dark;
+        transition: color 0.2s ease;
+
+        &:hover {
+            color: $color-primary;
+        }
+    }
+
+    &__icon {
+        color: $color-primary;
+    }
+
+    &__social {
+        display: flex;
+        gap: 1.5rem;
+        margin-top: 1rem;
+    }
+
+    &__social-link {
+        color: $color-text-dark;
+        transition: color 0.2s ease;
+
+        &:hover {
+            color: $color-primary;
+        }
+    }
+
+    &__social-icon {
+        width: 24px;
+        height: 24px;
+    }
+}
+
+.terminal {
+    &__footer {
+        text-align: center;
+        padding: 2rem 0;
+        margin-top: 4rem;
+        border-top: 1px solid rgba($color-text-dark, 0.1);
+        font-size: 0.9rem;
+        opacity: 0.7;
+
+        a {
+            color: $color-primary;
+            text-decoration: none;
+
+            &:hover {
+                text-decoration: underline;
+            }
+        }
+    }
+}
+
+.about {
+    text-align: center;
+    margin-top: 2rem;
+
+    &__links {
+        display: flex;
+        justify-content: center;
+        gap: 1rem;
+        margin-bottom: 2rem;
+
+        .about__link {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            background: rgba(30, 41, 59, 0.5);
+            padding: 0.5rem 1rem;
+            border-radius: $border-radius;
+            color: #ffffff;
+            text-decoration: none;
+            transition: background 0.3s, transform 0.2s;
+
+            &:hover {
+                background: lighten($color-primary, 10%);
+                transform: scale(1.05);
+            }
+        }
+    }
+
+    &__buttons {
+        display: flex;
+        justify-content: center;
+        gap: 1rem;
+
+        .about__button {
+            background: $color-primary;
+            color: #ffffff;
+            padding: 0.75rem 1.5rem;
+            border-radius: $border-radius;
+            text-decoration: none;
+            font-weight: 600;
+            transition: all 0.3s ease;
+
+            &:hover {
+                background: lighten($color-primary, 10%);
+                transform: scale(1.05);
+            }
+        }
+    }
+}
+
+// Import other component styles
+@import 'Navigation';
+@import 'BootSequence';
+@import 'MatrixRain';
+@import 'ProjectCard';
+@import 'ContentSection';
+@import 'TypeWriter';

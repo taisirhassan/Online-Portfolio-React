@@ -1,0 +1,25 @@
+@import 'variables';
+
+.boot-sequence {
+    min-height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: $color-bg-dark;
+    color: $color-primary;
+    padding: 2rem;
+
+    &__container {
+        max-width: 600px;
+        width: 100%;
+    }
+
+    &__line {
+        margin-bottom: 0.5rem;
+        transition: opacity 0.3s ease;
+
+        &--completed {
+            opacity: 0.6;
+        }
+    }
+}

@@ -1,0 +1,31 @@
+@import 'variables';
+
+.content-section {
+    margin-bottom: 4rem;
+    animation: fadeIn 0.5s ease-in-out;
+
+    &__header {
+        display: flex;
+        align-items: center;
+        gap: 0.5rem;
+        margin-bottom: 1.5rem;
+        padding-bottom: 0.5rem;
+        border-bottom: 1px solid rgba($color-primary, 0.2);
+    }
+
+    &__content {
+        padding-left: 1rem;
+    }
+}
+
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+        transform: translateY(10px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}

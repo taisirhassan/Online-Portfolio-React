@@ -1,0 +1,53 @@
+@import 'variables';
+
+.project-card {
+    background: rgba(30, 41, 59, 0.5);
+    backdrop-filter: blur(10px);
+    border-radius: $border-radius;
+    padding: 1.5rem;
+    margin-bottom: 1rem;
+    transition: all $transition-speed $transition-timing;
+    border: 1px solid transparent;
+    box-shadow: $box-shadow;
+
+    &:hover {
+        transform: translateY(-2px);
+        border-color: rgba($color-primary, 0.2);
+        background: rgba(30, 41, 59, 0.8);
+        box-shadow: $box-shadow-hover;
+    }
+
+    &__header {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        margin-bottom: 0.5rem;
+
+        svg {
+            color: $color-primary;
+            transition: color $transition-speed $transition-timing;
+
+            &:hover {
+                color: lighten($color-primary, 10%);
+            }
+        }
+    }
+
+    &__title {
+        color: $color-primary;
+        font-size: 1.125rem;
+        font-weight: 600;
+        margin-bottom: 0.25rem;
+        transition: color $transition-speed $transition-timing;
+
+        &:hover {
+            color: lighten($color-primary, 10%);
+        }
+    }
+
+    &__tech {
+        color: $color-secondary;
+        font-size: 0.875rem;
+        margin: 0.75rem 0;
+    }
+}
