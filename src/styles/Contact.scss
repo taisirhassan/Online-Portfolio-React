@@ -1,0 +1,66 @@
+.contact {
+    padding: 1rem 0;
+
+    &__command {
+        color: #fff;
+        margin-bottom: 2rem;
+        font-family: 'Fira Code', monospace;
+
+        &::after {
+            content: '';
+            display: inline-block;
+            width: 8px;
+            height: 1rem;
+            background-color: #fff;
+            margin-left: 2px;
+            animation: blink 1s step-end infinite;
+        }
+    }
+
+    &__content {
+        display: flex;
+        flex-direction: column;
+        gap: 1.5rem;
+    }
+
+    &__item {
+        display: flex;
+        align-items: center;
+        gap: 1rem;
+        color: #22c55e; // Green color for the icons
+        font-family: 'Fira Code', monospace;
+
+        .contact__icon {
+            width: 20px;
+            height: 20px;
+        }
+    }
+
+    &__social {
+        display: flex;
+        justify-content: center;
+        gap: 3rem;
+        margin-top: 3rem;
+
+        a {
+            color: #fff;
+            transition: color 0.2s ease;
+
+            &:hover {
+                color: #22c55e;
+            }
+        }
+    }
+}
+
+@keyframes blink {
+
+    0%,
+    100% {
+        opacity: 1;
+    }
+
+    50% {
+        opacity: 0;
+    }
+}

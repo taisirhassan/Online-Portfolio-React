@@ -1,35 +1,103 @@
-@import 'variables';
-
-.navigation {
-    position: sticky;
-    top: 0;
-    z-index: 20;
+// styles/Navigation.scss
+.terminal-nav {
+    background-color: rgba(0, 0, 0, 0.8);
     backdrop-filter: blur(10px);
     padding: 1rem;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    border-bottom: 1px solid rgba($color-primary, 0.1);
+    font-family: 'Fira Code', monospace;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
 
-    &__menu {
+    &__header {
         display: flex;
-        gap: 1.5rem;
+        justify-content: space-between;
+        align-items: center;
+        margin-bottom: 1rem;
+    }
+
+    &__prompt {
+        color: #22c55e;
+        font-weight: 500;
+    }
+
+    &__actions {
+        display: flex;
+        align-items: center;
+        gap: 1rem;
+    }
+
+    &__theme-toggle {
+        background: none;
+        border: none;
+        color: #a3a3a3;
+        cursor: pointer;
+        padding: 0.5rem;
+        transition: color 0.2s ease;
+
+        &:hover {
+            color: #ffffff;
+        }
+    }
+
+    &__time {
+        color: #666666;
+        font-size: 0.9rem;
+    }
+
+    &__help {
+        margin-top: 1rem;
+    }
+
+    &__help-text {
+        color: #22c55e;
+        margin-bottom: 0.75rem;
+    }
+
+    &__commands {
+        display: flex;
+        flex-direction: column;
+        gap: 0.5rem;
+    }
+
+    &__command {
+        display: flex;
         align-items: center;
     }
 
-    &__link {
+    &__command-btn {
+        background: none;
+        border: none;
+        padding: 0.25rem 0;
+        width: 100%;
+        text-align: left;
+        cursor: pointer;
         color: inherit;
-        text-decoration: none;
-        padding: 0.5rem;
-        transition: color $transition-speed $transition-timing;
+        font-family: inherit;
+        font-size: inherit;
+        display: flex;
+        gap: 1rem;
 
         &:hover {
-            color: $color-primary;
+            .terminal-nav__command-name {
+                color: #22c55e;
+            }
         }
+    }
 
-        &.active {
-            color: $color-primary;
-            border-bottom: 2px solid $color-primary;
-        }
+    &__command-name {
+        color: #60a5fa;
+        min-width: 120px;
+        transition: color 0.2s ease;
+    }
+
+    &__command-desc {
+        color: #666666;
+    }
+}
+
+// Dark mode adjustments
+.dark .terminal-nav {
+    background-color: rgba(0, 0, 0, 0.8);
+
+    &__command-desc {
+        color: #888888;
     }
 }

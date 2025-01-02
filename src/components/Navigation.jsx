@@ -1,47 +1,59 @@
+// src/components/Navigation.jsx
 import React, { useState } from 'react';
-import { Terminal, Sun, Moon } from 'lucide-react';
-import '../styles/main.scss';
+import { Sun, Moon } from 'lucide-react';
+import '../styles/Navigation.scss';
 
 const Navigation = ({ isDarkMode, toggleDarkMode }) => {
-  const sections = [
-    { id: 'about', label: 'About' },
-    { id: 'experience', label: 'Experience' },
-    { id: 'hardware', label: 'Hardware' },
-    { id: 'software', label: 'Software' },
-    { id: 'contact', label: 'Contact' }
-  ];
-
-  const scrollToSection = (id) => {
+  const handleScrollToSection = (id) => {
     const element = document.getElementById(id);
     if (element) {
       element.scrollIntoView({ behavior: 'smooth' });
     }
   };
 
+  const commands = [
+    { id: 'about', label: 'View personal information' },
+    { id: 'experience', label: 'View work experience' },
+    { id: 'hardware', label: 'View hardware projects' },
+    { id: 'software', label: 'View software projects' },
+    { id: 'contact', label: 'View contact information' }
+  ];
+
   return (
-    <nav className="navigation">
-      <div className="navigation__brand">
-        <Terminal className="navigation__icon" />
-        <span>Taisir_Terminal</span>
-      </div>
-      
-      <div className="navigation__links">
-        {sections.map(section => (
-          <button
-            key={section.id}
-            onClick={() => scrollToSection(section.id)}
-            className="navigation__link"
+    <nav className="terminal-nav">
+      <div className="terminal-nav__header">
+        <span className="terminal-nav__prompt">_taisir@portfolio:~</span>
+        <div className="terminal-nav__actions">
+          <button 
+            onClick={toggleDarkMode}
+            className="terminal-nav__theme-toggle"
+            aria-label="Toggle theme"
           >
-            {section.label}
+            {isDarkMode ? <Sun size={16} /> : <Moon size={16} />}
           </button>
-        ))}
-        
-        <button 
-          className="navigation__theme-toggle"
-          onClick={toggleDarkMode}
-        >
-          {isDarkMode ? <Sun /> : <Moon />}
-        </button>
+          <span className="terminal-nav__time">
+            {new Date().toLocaleTimeString([], { hour12: false })}
+          </span>
+        </div>
+      </div>
+
+      <div className="terminal-nav__help">
+        <div className="terminal-nav__help-text">
+          &gt; Type 'help' for available commands:
+        </div>
+        <div className="terminal-nav__commands">
+          {commands.map((command) => (
+            <div key={command.id} className="terminal-nav__command">
+              <button 
+                onClick={() => handleScrollToSection(command.id)}
+                className="terminal-nav__command-btn"
+              >
+                <span className="terminal-nav__command-name">{command.id}</span>
+                <span className="terminal-nav__command-desc">- {command.label}</span>
+              </button>
+            </div>
+          ))}
+        </div>
       </div>
     </nav>
   );

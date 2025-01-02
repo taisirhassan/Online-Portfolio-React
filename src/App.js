@@ -4,6 +4,7 @@ import ContentSection from "./components/ContentSection";
 import ProjectCard from "./components/ProjectCard";
 import MatrixRain from "./components/MatrixRain";
 import BootSequence from "./components/BootSequence";
+import Contact from "./components/Contact";
 import { Github, Linkedin, Globe, Mail, Phone } from "lucide-react";
 import "./App.css";
 import "./styles/main.scss";
@@ -112,9 +113,11 @@ const App = () => {
 
               <div className="about__buttons">
                 <a
-                  href="https://taisirhassan.netlify.app/resume"
+                  href="/Taisir - Hardware:Embedded Resume.pdf"
                   className="about__button"
                   download
+                  target="_blank" // Opens in new tab
+                  rel="noopener noreferrer" // Security best practice for target="_blank"
                 >
                   Download Resume
                 </a>
@@ -140,7 +143,9 @@ const App = () => {
 
           <ContentSection id="projects" title="projects">
             <div className="projects-grid">
-              <h2 className="projects-grid__title">Hardware Projects</h2>
+              <h2 className="projects-grid__title" id="hardware">
+                Hardware Projects
+              </h2>
               <div className="projects-grid__section">
                 <ProjectCard
                   title="RISC-V Processor"
@@ -164,7 +169,9 @@ const App = () => {
                 />
               </div>
 
-              <h2 className="projects-grid__title">Software Projects</h2>
+              <h2 className="projects-grid__title" id="software">
+                Software Projects
+              </h2>
               <div className="projects-grid__section">
                 <ProjectCard
                   title="Virtual SmartHome Dashboard"
@@ -190,37 +197,7 @@ const App = () => {
             </div>
           </ContentSection>
 
-          <ContentSection id="contact" title="contact">
-            <div className="contact">
-              <a
-                href="mailto:taisir.hassan@uwaterloo.ca"
-                className="contact__item"
-              >
-                <Mail className="contact__icon" />
-                <span>taisir.hassan@uwaterloo.ca</span>
-              </a>
-
-              <a href="tel:647-667-3006" className="contact__item">
-                <Phone className="contact__icon" />
-                <span>647-667-3006</span>
-              </a>
-
-              <div className="contact__social">
-                <a
-                  href="https://github.com/taisirhassan"
-                  className="contact__social-link"
-                >
-                  <Github className="contact__social-icon" />
-                </a>
-                <a
-                  href="https://linkedin.com/in/taisir-hassan"
-                  className="contact__social-link"
-                >
-                  <Linkedin className="contact__social-icon" />
-                </a>
-              </div>
-            </div>
-          </ContentSection>
+          <Contact />
         </main>
 
         <footer className="terminal__footer">
