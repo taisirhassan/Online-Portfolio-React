@@ -15,36 +15,118 @@ body {
 .terminal {
     font-family: $font-mono;
     min-height: 100vh;
-    transition: background-color $transition-speed $transition-timing;
+    transition: all $transition-speed $transition-timing;
 
     &.dark {
         background-color: $color-bg-dark;
         color: $color-text-dark;
+
+        .project-card {
+            background-color: $color-card-dark;
+            border: 1px solid $color-border-dark;
+            box-shadow: $box-shadow-dark;
+
+            &:hover {
+                box-shadow: $box-shadow-hover-dark;
+                transform: translateY(-2px);
+                border-color: rgba($color-primary, 0.5);
+            }
+
+            &__title {
+                color: $color-primary;
+            }
+
+            &__tech {
+                color: $color-text-dark;
+                opacity: 0.8;
+            }
+
+            &__description {
+                color: $color-text-dark;
+            }
+        }
+
+        .terminal__footer {
+            border-top: 1px solid $color-border-dark;
+        }
+
+        a {
+            color: $color-primary;
+            text-decoration: none;
+            &:hover {
+                color: lighten($color-primary, 10%);
+            }
+        }
+
+        .about {
+            &__name {
+                color: $color-primary;
+            }
+            &__role, &__current {
+                color: $color-text-dark;
+            }
+        }
+
+        .matrix-rain {
+            opacity: 0.5;
+        }
     }
 
     &.light {
         background-color: $color-bg-light;
         color: $color-text-light;
-        a {
-                color: $color-accent;
-        
-                &:hover {
-                    color: lighten($color-accent, 20%);
-                }
+
+        .matrix-rain {
+            opacity: 0.15;
+        }
+
+        .project-card {
+            background-color: $color-card-light;
+            border: 1px solid $color-border-light;
+            box-shadow: $box-shadow-light;
+
+            &:hover {
+                box-shadow: $box-shadow-hover-light;
+                transform: translateY(-2px);
+                border-color: rgba($color-primary, 0.5);
             }
-                        .matrix-rain {
-                            opacity: 0.3;
-                        }
-            
-                        .project-card {
-                            background-color: rgba($color-bg-light, 0.8);
-                            border: 1px solid rgba($color-text-light, 0.1);
-            
-                            &:hover {
-                                background-color: rgba($color-bg-light, 0.95);
-                            }
-                        }
-                        }
+
+            &__title {
+                color: $color-text-light;
+            }
+
+            &__tech {
+                color: $color-text-light;
+                opacity: 0.8;
+            }
+
+            &__description {
+                color: $color-text-light;
+            }
+        }
+
+        .terminal__footer {
+            border-top: 1px solid $color-border-light;
+        }
+
+        a {
+            color: $color-accent;
+            text-decoration: none;
+
+            &:hover {
+                color: darken($color-accent, 10%);
+            }
+        }
+
+        .about {
+            &__name {
+                color: $color-text-light;
+            }
+            &__role, &__current {
+                color: $color-text-light;
+            }
+        }
+    }
 
     &__container {
         position: relative;
@@ -65,8 +147,9 @@ body {
     &__footer {
         text-align: center;
         padding: 2rem 0;
-        border-top: 1px solid rgba($color-text-dark, 0.1);
         margin-top: 4rem;
+        font-size: 0.9rem;
+        opacity: 0.8;
     }
 }
 
@@ -273,22 +356,81 @@ body {
 
         .about__button {
             background: $color-primary;
-            color: #ffffff;
+            color: #ffffff !important;
             padding: 0.75rem 1.5rem;
             border-radius: $border-radius;
             text-decoration: none;
             font-weight: 600;
             transition: all 0.3s ease;
+            border: 1px solid transparent;
 
-            &:hover {
-                background: lighten($color-primary, 10%);
-                transform: scale(1.05);
+            .dark & {
+                background: $color-primary;
+                color: #ffffff !important;
+
+                &:hover {
+                    background: lighten($color-primary, 10%);
+                    transform: scale(1.05);
+                }
+            }
+
+            .light & {
+                background: $color-primary;
+                color: #ffffff !important;
+                box-shadow: $box-shadow-light;
+
+                &:hover {
+                    background: darken($color-primary, 5%);
+                    transform: scale(1.05);
+                    box-shadow: $box-shadow-hover-light;
+                }
             }
         }
     }
-    
 }
 
+.projects-grid {
+    &__title {
+        font-size: 2rem;
+        margin: 2.5rem 0 1.5rem;
+        color: inherit;
+        
+        &:first-child {
+            margin-top: 0;
+        }
+    }
+
+    &__section {
+        display: grid;
+        gap: 1.5rem;
+        margin-bottom: 3rem;
+
+        @media (min-width: $breakpoint-md) {
+            grid-template-columns: repeat(2, 1fr);
+        }
+
+        @media (min-width: $breakpoint-lg) {
+            grid-template-columns: repeat(3, 1fr);
+        }
+
+        .project-card {
+            height: 100%;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            margin: 0;
+            background: rgba($color-bg-dark, 0.3);
+
+            &__content {
+                flex: 1;
+            }
+
+            &__footer {
+                margin-top: 1.5rem;
+            }
+        }
+    }
+}
 
 // Import other component styles
 @import 'Navigation';

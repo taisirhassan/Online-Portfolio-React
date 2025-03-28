@@ -1,12 +1,20 @@
 // Colors
-$color-bg-dark: #000000;
-$color-bg-light: #f1f5f9;
+$color-bg-dark: #1a1a1a;
+$color-bg-light: #ffffff;
 $color-text-dark: #e2e8f0;
 $color-text-light: #1e293b;
 $color-primary: #22c55e;
 $color-secondary: #7c3aed;
-$color-accent: #0ea5e9;
+$color-accent: #0284c7;
 $color-error: #ef4444;
+
+// Dark mode specific
+$color-card-dark: #262626;
+$color-border-dark: #404040;
+
+// Light mode specific
+$color-card-light: #ffffff;
+$color-border-light: #e2e8f0;
 
 // Typography
 $font-mono: 'Fira Code', 'Consolas', 'Monaco', 'Andale Mono', 'Ubuntu Mono', monospace;
@@ -37,3 +45,9 @@ $border-radius: 0.5rem;
 // Shadows
 $box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
 $box-shadow-hover: 0px 8px 15px rgba(0, 0, 0, 0.15);
+
+// Shadows
+$box-shadow-dark: 0 4px 6px -1px rgba(0, 0, 0, 0.3);
+$box-shadow-hover-dark: 0 10px 15px -3px rgba(0, 0, 0, 0.4);
+$box-shadow-light: 0 4px 6px -1px rgb(0 0 0 / 0.1);
+$box-shadow-hover-light: 0 10px 15px -3px rgb(0 0 0 / 0.1);
