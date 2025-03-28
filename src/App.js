@@ -1,81 +1,41 @@
-import React, { useState } from "react";
+import React, { useState, lazy, Suspense } from "react";
 import Navigation from "./components/Navigation";
 import ContentSection from "./components/ContentSection";
 import ProjectCard from "./components/ProjectCard";
-import MatrixRain from "./components/MatrixRain";
-import BootSequence from "./components/BootSequence";
 import Contact from "./components/Contact";
 import { Github, Linkedin, Globe, Mail, Phone } from "lucide-react";
+import { experiences } from "./data/experiences";
+import { RESUME_FILENAME, SOCIAL_LINKS, PROJECTS } from "./constants";
 import "./App.css";
 import "./styles/main.scss";
+
+// Lazy load the MatrixRain component
+const MatrixRain = lazy(() => import("./components/MatrixRain"));
+const BootSequence = lazy(() => import("./components/BootSequence"));
 
 const App = () => {
   const [isDarkMode, setIsDarkMode] = useState(true);
   const [isBooted, setIsBooted] = useState(false);
 
-  const experiences = [
-    {
-      title: "Telesat",
-      role: "Embedded Software Engineering Co-op",
-      date: "Jan 2025 - Apr 2025",
-      location: "Ottawa, ON",
-      description:
-        "Developing satellite User Terminal systems using C++ and Python, implementing networking solutions on Linux systems",
-    },
-    {
-      title: "UW Rocketry",
-      role: "Electrical Team Member",
-      date: "May 2024 - Present",
-      location: "Waterloo, ON",
-      description:
-        "Developing PWM and ADC drivers with low-pass filter logic, designing SDR with APRS receiver, leading PCB schematic design",
-    },
-    {
-      title: "University of Waterloo",
-      role: "Autonomous Vehicle Research Assistant",
-      date: "September 2024 - Present",
-      location: "Waterloo, ON",
-      description:
-        "Implementing CAN bus monitoring and ROS2 nodes for autonomous vehicle control systems",
-    },
-    {
-      title: "Watonomous Design Team",
-      role: "Embedded Systems Developer",
-      date: "December 2023 - Present",
-      location: "Waterloo, ON",
-      description:
-        "Engineering ROS2 nodes for camera and LiDAR functionality, optimizing Docker containers for sensor operations",
-    },
-    {
-      title: "Cohere.ai",
-      role: "Data Quality Specialist",
-      date: "May 2023 - Sept 2023, May 2024 - Aug 2024",
-      location: "Toronto, ON",
-      description:
-        "Led LLM quality assurance with 98% completion rate, reduced data discrepancies by 25%",
-    },
-    {
-      title: "Playfair Technologies",
-      role: "Junior Fullstack Developer",
-      date: "Jan 2022 - Apr 2022",
-      location: "Toronto, ON",
-      description:
-        "Developed React Native mobile app, improved performance by 30%, reduced deployment time by 40%",
-    },
-  ];
-
   if (!isBooted) {
-    return <BootSequence onComplete={() => setIsBooted(true)} />;
+    return (
+      <Suspense fallback={<div>Loading...</div>}>
+        <BootSequence onComplete={() => setIsBooted(true)} />
+      </Suspense>
+    );
   }
 
   return (
-    <div className={`terminal ${isDarkMode ? "dark" : "light"}`}>
-      <MatrixRain isDarkMode={isDarkMode} />
+    <div className={`terminal ${isDarkMode ? "dark" : "light"}`} role="application">
+      <Suspense fallback={null}>
+        <MatrixRain isDarkMode={isDarkMode} />
+      </Suspense>
 
       <div className="terminal__container">
         <Navigation
           isDarkMode={isDarkMode}
           toggleDarkMode={() => setIsDarkMode(!isDarkMode)}
+          aria-label="Main navigation"
         />
 
         <main className="terminal__content">
@@ -90,38 +50,42 @@ const App = () => {
                 Currently @ Telesat - Embedded Software Engineer
               </p>
 
-              <div className="about__links">
+              <div className="about__links" role="list">
                 <a
-                  href="https://github.com/taisirhassan"
+                  href={SOCIAL_LINKS.github}
                   className="about__link"
+                  aria-label="Visit GitHub profile"
                 >
-                  <Github size={20} /> GitHub
+                  <Github size={20} aria-hidden="true" /> GitHub
                 </a>
                 <a
-                  href="https://linkedin.com/in/taisir-hassan"
+                  href={SOCIAL_LINKS.linkedin}
                   className="about__link"
+                  aria-label="Visit LinkedIn profile"
                 >
-                  <Linkedin size={20} /> LinkedIn
+                  <Linkedin size={20} aria-hidden="true" /> LinkedIn
                 </a>
                 <a
-                  href="https://taisirhassan.netlify.app"
+                  href={SOCIAL_LINKS.portfolio}
                   className="about__link"
+                  aria-label="Visit portfolio website"
                 >
-                  <Globe size={20} /> Portfolio
+                  <Globe size={20} aria-hidden="true" /> Portfolio
                 </a>
               </div>
 
-              <div className="about__buttons">
+              <div className="about__buttons" role="list">
                 <a
-                  href="/Taisir - Hardware:Embedded Resume.pdf"
+                  href={`/${RESUME_FILENAME}`}
                   className="about__button"
                   download
-                  target="_blank" // Opens in new tab
-                  rel="noopener noreferrer" // Security best practice for target="_blank"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  aria-label="Download resume"
                 >
                   Download Resume
                 </a>
-                <a href="#contact" className="about__button">
+                <a href="#contact" className="about__button" aria-label="Go to contact section">
                   Contact Me
                 </a>
               </div>
@@ -129,7 +93,7 @@ const App = () => {
           </ContentSection>
 
           <ContentSection id="experience" title="experience">
-            <div className="experience">
+            <div className="experience" role="list">
               {experiences.map((exp, index) => (
                 <ProjectCard
                   key={index}
@@ -146,53 +110,31 @@ const App = () => {
               <h2 className="projects-grid__title" id="hardware">
                 Hardware Projects
               </h2>
-              <div className="projects-grid__section">
-                <ProjectCard
-                  title="RISC-V Processor"
-                  tech="Verilog, GTKWave, Icarus Verilog"
-                  description="32-bit processor with 5-stage pipeline and hazard detection"
-                  repo="https://github.com/taisirhassan/riscv_core"
-                />
-
-                <ProjectCard
-                  title="De Bruijn Circuit Verification"
-                  tech="Scala, Verilog, SystemVerilog"
-                  description="URA Research: Digital circuit verification via De Bruijn sequences"
-                  repo="https://git.uwaterloo.ca/MarkAagaard/debruijn/-/tree/main"
-                />
-
-                <ProjectCard
-                  title="Firefighting Robot"
-                  tech="C++, Arduino"
-                  description="Autonomous robot with heat detection and navigation systems"
-                  repo="https://github.com/taisirhassan/Firefighting-Robot"
-                />
+              <div className="projects-grid__section" role="list">
+                {PROJECTS.hardware.map((project, index) => (
+                  <ProjectCard
+                    key={index}
+                    title={project.title}
+                    tech={project.tech}
+                    description={project.description}
+                    repo={project.repo}
+                  />
+                ))}
               </div>
 
               <h2 className="projects-grid__title" id="software">
                 Software Projects
               </h2>
-              <div className="projects-grid__section">
-                <ProjectCard
-                  title="Virtual SmartHome Dashboard"
-                  tech="Python, Next.js, AWS, MQTT, Docker"
-                  description="IoT simulation platform with real-time analytics"
-                  repo="https://github.com/taisirhassan/Smart-Home-Dashboard"
-                />
-
-                <ProjectCard
-                  title="ReadRight"
-                  tech="React, Express, GCP, Cohere API"
-                  description="HackThe6ix Winner: AI-powered reading assistance platform"
-                  repo="https://github.com/JustinScitech/ReadRight"
-                />
-
-                <ProjectCard
-                  title="AudioViz"
-                  tech="C++, OpenGL, FFT"
-                  description="Real-time audio visualization system"
-                  repo="https://github.com/taisirhassan/audio_viz"
-                />
+              <div className="projects-grid__section" role="list">
+                {PROJECTS.software.map((project, index) => (
+                  <ProjectCard
+                    key={index}
+                    title={project.title}
+                    tech={project.tech}
+                    description={project.description}
+                    repo={project.repo}
+                  />
+                ))}
               </div>
             </div>
           </ContentSection>
@@ -203,7 +145,10 @@ const App = () => {
         <footer className="terminal__footer">
           <p>
             Built with React & SASS •{" "}
-            <a href="https://github.com/taisirhassan/Online-Portfolio-React">
+            <a 
+              href={SOCIAL_LINKS.sourceCode}
+              aria-label="View source code on GitHub"
+            >
               View source on GitHub
             </a>
           </p>
