@@ -26,7 +26,7 @@ const bootSteps = [
       
       return () => clearTimeout(timer);
     }
-  }, [currentStep, bootSteps.length, onComplete]);
+  }, [currentStep, bootSteps, bootSteps.length, onComplete]);
 
   return (
     <div className="boot-sequence">

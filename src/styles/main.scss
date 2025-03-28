@@ -1,5 +1,46 @@
 @use 'variables' as *;
 
+// Define animations and mixins first
+@keyframes float {
+    0% {
+        transform: translateY(0px);
+    }
+    50% {
+        transform: translateY(-5px);
+    }
+    100% {
+        transform: translateY(0px);
+    }
+}
+
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+        transform: translateY(10px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+@mixin social-icon-hover {
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    
+    &:hover {
+        animation: float 1s ease-in-out infinite;
+        color: $color-primary;
+        
+        svg {
+            transform: scale(1.2) rotate(360deg);
+        }
+    }
+    
+    svg {
+        transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    }
+}
+
 * {
     margin: 0;
     padding: 0;
@@ -148,8 +189,33 @@ body {
         text-align: center;
         padding: 2rem 0;
         margin-top: 4rem;
+        border-top: 1px solid rgba($color-text-dark, 0.1);
         font-size: 0.9rem;
-        opacity: 0.8;
+        opacity: 0.7;
+
+        a {
+            color: $color-primary;
+            text-decoration: none;
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            padding: 0.5rem;
+            border-radius: $border-radius;
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            position: relative;
+
+            svg {
+                transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            }
+
+            &:hover {
+                color: lighten($color-primary, 10%);
+                
+                svg {
+                    transform: scale(1.2) rotate(360deg);
+                }
+            }
+        }
     }
 }
 
@@ -160,18 +226,6 @@ body {
 
 .fade-in {
     animation: fadeIn 0.5s ease-out;
-}
-
-@keyframes fadeIn {
-    from {
-        opacity: 0;
-        transform: translateY(10px);
-    }
-
-    to {
-        opacity: 1;
-        transform: translateY(0);
-    }
 }
 
 .contact {
@@ -195,6 +249,15 @@ body {
         display: flex;
         justify-content: center;
         gap: 1.5rem;
+    }
+
+    &__social-link {
+        color: $color-text-dark;
+        @include social-icon-hover;
+        display: inline-flex;
+        align-items: center;
+        padding: 0.5rem;
+        border-radius: $border-radius;
     }
 }
 
@@ -257,70 +320,6 @@ body {
     }
 }
 
-.contact {
-    display: flex;
-    flex-direction: column;
-    gap: 1.5rem;
-    margin: 2rem 0;
-
-    &__item {
-        display: flex;
-        align-items: center;
-        gap: 1rem;
-        font-size: 1.1rem;
-        color: $color-text-dark;
-        transition: color 0.2s ease;
-
-        &:hover {
-            color: $color-primary;
-        }
-    }
-
-    &__icon {
-        color: $color-primary;
-    }
-
-    &__social {
-        display: flex;
-        gap: 1.5rem;
-        margin-top: 1rem;
-    }
-
-    &__social-link {
-        color: $color-text-dark;
-        transition: color 0.2s ease;
-
-        &:hover {
-            color: $color-primary;
-        }
-    }
-
-    &__social-icon {
-        width: 24px;
-        height: 24px;
-    }
-}
-
-.terminal {
-    &__footer {
-        text-align: center;
-        padding: 2rem 0;
-        margin-top: 4rem;
-        border-top: 1px solid rgba($color-text-dark, 0.1);
-        font-size: 0.9rem;
-        opacity: 0.7;
-
-        a {
-            color: $color-primary;
-            text-decoration: none;
-
-            &:hover {
-                text-decoration: underline;
-            }
-        }
-    }
-}
-
 .about {
     text-align: center;
     margin-top: 2rem;
@@ -328,23 +327,62 @@ body {
     &__links {
         display: flex;
         justify-content: center;
-        gap: 1rem;
+        gap: 1.5rem;
         margin-bottom: 2rem;
 
         .about__link {
             display: flex;
             align-items: center;
             gap: 0.5rem;
-            background: rgba(30, 41, 59, 0.5);
-            padding: 0.5rem 1rem;
+            padding: 0.75rem 1.25rem;
             border-radius: $border-radius;
-            color: #ffffff;
             text-decoration: none;
-            transition: background 0.3s, transform 0.2s;
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            position: relative;
+            overflow: hidden;
+            background: rgba(30, 41, 59, 0.2);
+
+            svg {
+                transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            }
+
+            &::before {
+                content: '';
+                position: absolute;
+                top: 50%;
+                left: 50%;
+                width: 0;
+                height: 0;
+                background: rgba($color-primary, 0.2);
+                border-radius: 50%;
+                transform: translate(-50%, -50%);
+                transition: width 0.6s ease, height 0.6s ease;
+                z-index: 1;
+            }
 
             &:hover {
-                background: lighten($color-primary, 10%);
-                transform: scale(1.05);
+                transform: translateY(-2px);
+                background: rgba(30, 41, 59, 0.3);
+
+                &::before {
+                    width: 300px;
+                    height: 300px;
+                }
+
+                svg {
+                    transform: scale(1.2) rotate(360deg);
+                    color: $color-primary;
+                }
+            }
+
+            span {
+                position: relative;
+                z-index: 2;
+            }
+
+            svg {
+                position: relative;
+                z-index: 2;
             }
         }
     }

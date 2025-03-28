@@ -3,7 +3,7 @@ import Navigation from "./components/Navigation";
 import ContentSection from "./components/ContentSection";
 import ProjectCard from "./components/ProjectCard";
 import Contact from "./components/Contact";
-import { Github, Linkedin, Globe, Mail, Phone } from "lucide-react";
+import { Github, Linkedin, Globe } from "lucide-react";
 import { experiences } from "./data/experiences";
 import { RESUME_FILENAME, SOCIAL_LINKS, PROJECTS } from "./constants";
 import "./App.css";

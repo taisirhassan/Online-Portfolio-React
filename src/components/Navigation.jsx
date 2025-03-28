@@ -1,5 +1,5 @@
 // src/components/Navigation.jsx
-import React, { useState } from 'react';
+import React from 'react';
 import { Sun, Moon } from 'lucide-react';
 import '../styles/Navigation.scss';
 
