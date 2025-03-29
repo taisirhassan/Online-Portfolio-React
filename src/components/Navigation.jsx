@@ -1,9 +1,19 @@
 // src/components/Navigation.jsx
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import { Sun, Moon } from 'lucide-react';
 import '../styles/Navigation.scss';
 
 const Navigation = ({ isDarkMode, toggleDarkMode }) => {
+  const [currentTime, setCurrentTime] = useState(new Date().toLocaleTimeString([], { hour12: false }));
+
+  useEffect(() => {
+    const timer = setInterval(() => {
+      setCurrentTime(new Date().toLocaleTimeString([], { hour12: false }));
+    }, 1000);
+
+    return () => clearInterval(timer);
+  }, []);
+
   const handleScrollToSection = (id) => {
     const element = document.getElementById(id);
     if (element) {
@@ -32,7 +42,7 @@ const Navigation = ({ isDarkMode, toggleDarkMode }) => {
             {isDarkMode ? <Sun size={16} /> : <Moon size={16} />}
           </button>
           <span className="terminal-nav__time">
-            {new Date().toLocaleTimeString([], { hour12: false })}
+            {currentTime}
           </span>
         </div>
       </div>
