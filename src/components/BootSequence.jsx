@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+import { motion, AnimatePresence } from 'framer-motion';
 import TypeWriter from './TypeWriter';
 import '../styles/main.scss';
 
@@ -29,27 +30,50 @@ const bootSteps = [
   }, [currentStep, bootSteps, bootSteps.length, onComplete]);
 
   return (
-    <div className="boot-sequence">
+    <motion.div 
+      className="boot-sequence"
+      initial={{ opacity: 0 }}
+      animate={{ opacity: 1 }}
+      exit={{ opacity: 0 }}
+      transition={{ duration: 0.5 }}
+    >
       <div className="boot-sequence__container">
-        {bootSteps.slice(0, currentStep + 1).map((step, index) => (
-          <div
-            key={index}
-            className={`boot-sequence__line ${
-              index === currentStep ? '' : 'boot-sequence__line--completed'
-            }`}
-          >
-            {index === currentStep ? (
-              <TypeWriter text={step.text} delay={50} />
-            ) : (
-              <span>
-                {step.text}
-                <span className="boot-sequence__checkmark">✓</span>
-              </span>
-            )}
-          </div>
-        ))}
+        <AnimatePresence>
+          {bootSteps.slice(0, currentStep + 1).map((step, index) => (
+            <motion.div
+              key={index}
+              className={`boot-sequence__line ${
+                index === currentStep ? '' : 'boot-sequence__line--completed'
+              }`}
+              initial={{ opacity: 0, x: -20 }}
+              animate={{ opacity: 1, x: 0 }}
+              exit={{ opacity: 0, x: 20 }}
+              transition={{ duration: 0.3 }}
+            >
+              {index === currentStep ? (
+                <TypeWriter text={step.text} delay={50} />
+              ) : (
+                <motion.span
+                  initial={{ opacity: 0 }}
+                  animate={{ opacity: 1 }}
+                  transition={{ duration: 0.3 }}
+                >
+                  {step.text}
+                  <motion.span 
+                    className="boot-sequence__checkmark"
+                    initial={{ opacity: 0, scale: 0 }}
+                    animate={{ opacity: 1, scale: 1 }}
+                    transition={{ duration: 0.3 }}
+                  >
+                    ✓
+                  </motion.span>
+                </motion.span>
+              )}
+            </motion.div>
+          ))}
+        </AnimatePresence>
       </div>
-    </div>
+    </motion.div>
   );
 };
 

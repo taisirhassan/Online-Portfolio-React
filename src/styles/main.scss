@@ -1,4 +1,12 @@
+@use 'sass:color';
 @use 'variables' as *;
+@use 'Navigation';
+@use 'BootSequence';
+@use 'MatrixRain';
+@use 'ProjectCard';
+@use 'ContentSection';
+@use 'TypeWriter';
+@use 'Contact';
 
 // Define animations and mixins first
 @keyframes float {
@@ -95,7 +103,7 @@ body {
             color: $color-primary;
             text-decoration: none;
             &:hover {
-                color: lighten($color-primary, 10%);
+                color: color.adjust($color-primary, $lightness: 10%);
             }
         }
 
@@ -155,7 +163,7 @@ body {
             text-decoration: none;
 
             &:hover {
-                color: darken($color-accent, 10%);
+                color: color.adjust($color-accent, $lightness: -10%);
             }
         }
 
@@ -209,7 +217,7 @@ body {
             }
 
             &:hover {
-                color: lighten($color-primary, 10%);
+                color: color.adjust($color-primary, $lightness: 10%);
                 
                 svg {
                     transform: scale(1.2) rotate(360deg);
@@ -297,7 +305,7 @@ body {
         transition: color 0.2s ease;
 
         &:hover {
-            color: lighten($color-accent, 10%);
+            color: color.adjust($color-accent, $lightness: 10%);
         }
     }
 }
@@ -407,7 +415,7 @@ body {
                 color: #ffffff !important;
 
                 &:hover {
-                    background: lighten($color-primary, 10%);
+                    background: color.adjust($color-primary, $lightness: 10%);
                     transform: scale(1.05);
                 }
             }
@@ -418,7 +426,7 @@ body {
                 box-shadow: $box-shadow-light;
 
                 &:hover {
-                    background: darken($color-primary, 5%);
+                    background: color.adjust($color-primary, $lightness: -5%);
                     transform: scale(1.05);
                     box-shadow: $box-shadow-hover-light;
                 }

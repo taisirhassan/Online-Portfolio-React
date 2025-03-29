@@ -65,20 +65,18 @@
     &__command-btn {
         background: none;
         border: none;
-        padding: 0.25rem 0;
-        width: 100%;
+        color: var(--color-text);
+        font-family: inherit;
+        font-size: 0.95rem;
         text-align: left;
         cursor: pointer;
-        color: inherit;
-        font-family: inherit;
-        font-size: inherit;
+        width: 100%;
         display: flex;
-        gap: 1rem;
-
+        padding: 0.25rem 0;
+        text-decoration: none;
+        
         &:hover {
-            .terminal-nav__command-name {
-                color: #22c55e;
-            }
+            color: var(--color-accent);
         }
     }
 

@@ -1,0 +1,43 @@
+@use 'variables' as *;
+
+.now-page {
+  min-height: 100vh;
+  width: 100%;
+  background-color: var(--color-bg);
+  display: flex;
+  justify-content: center;
+  font-family: $font-mono;
+  padding: 2rem 1rem;
+  
+  &__container {
+    width: 100%;
+    max-width: 1000px;
+  }
+  
+  &__header {
+    margin-bottom: 2rem;
+  }
+  
+  &__back-btn {
+    display: inline-flex;
+    align-items: center;
+    color: var(--color-accent);
+    text-decoration: none;
+    font-size: 1rem;
+    transition: all 0.3s;
+    background: none;
+    border: none;
+    padding: 0;
+    cursor: pointer;
+    font-family: inherit;
+    
+    &:hover {
+      opacity: 0.8;
+    }
+  }
+  
+  &__back-icon {
+    margin-right: 0.5rem;
+    font-size: 1.2rem;
+  }
+} 

@@ -1,4 +1,4 @@
-@import 'variables';
+@use 'variables' as *;
 
 .boot-sequence {
     min-height: 100vh;

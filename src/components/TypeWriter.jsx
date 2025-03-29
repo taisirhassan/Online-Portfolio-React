@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+import { motion } from 'framer-motion';
 import '../styles/main.scss';
 
 const TypeWriter = ({ text, delay = 50, onComplete = () => {} }) => {
@@ -19,10 +20,21 @@ const TypeWriter = ({ text, delay = 50, onComplete = () => {} }) => {
   }, [currentIndex, delay, text, onComplete]);
 
   return (
-    <span className="typewriter">
+    <motion.span 
+      className="typewriter"
+      initial={{ opacity: 0 }}
+      animate={{ opacity: 1 }}
+      transition={{ duration: 0.3 }}
+    >
       {currentText}
-      <span className="typewriter__cursor">_</span>
-    </span>
+      <motion.span 
+        className="typewriter__cursor"
+        animate={{ opacity: [1, 0, 1] }}
+        transition={{ duration: 1, repeat: Infinity }}
+      >
+        _
+      </motion.span>
+    </motion.span>
   );
 };
 
