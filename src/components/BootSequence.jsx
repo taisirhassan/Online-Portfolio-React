@@ -1,20 +1,20 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useMemo } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import TypeWriter from './TypeWriter';
 import '../styles/main.scss';
 
 const BootSequence = ({ onComplete }) => {
   const [currentStep, setCurrentStep] = useState(0);
-const bootSteps = [
-  { text: "[  0.000000] Starting portfolio boot sequence...", delay: 1000 },
-  { text: "[  0.250000] Running 'sudo show_off_skills'...", delay: 700 },
-  { text: "[  0.500000] Accessing creative mindset...", delay: 600 },
-  { text: "[  0.750000] Verifying achievements...", delay: 800 },
-  { text: "[  1.000000] Compiling fun facts...", delay: 700 },
-  { text: "[  1.250000] All systems operational.", delay: 500 },
-  { text: "[  1.500000] Welcome, Taisir Hassan!", delay: 1000 }
-];
-
+  
+  const bootSteps = useMemo(() => [
+    { text: "[  0.000000] Starting portfolio boot sequence...", delay: 1000 },
+    { text: "[  0.250000] Running 'sudo show_off_skills'...", delay: 700 },
+    { text: "[  0.500000] Accessing creative mindset...", delay: 600 },
+    { text: "[  0.750000] Verifying achievements...", delay: 800 },
+    { text: "[  1.000000] Compiling fun facts...", delay: 700 },
+    { text: "[  1.250000] All systems operational.", delay: 500 },
+    { text: "[  1.500000] Welcome, Taisir Hassan!", delay: 1000 }
+  ], []); // Empty dependency array since bootSteps is static
 
   useEffect(() => {
     if (currentStep < bootSteps.length) {
