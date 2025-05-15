@@ -1,4 +1,4 @@
-export const RESUME_FILENAME = "Taisir - Hardware:Embedded Resume.pdf";
+export const RESUME_FILENAME = "Taisir-Resume.pdf";
 
 export const SOCIAL_LINKS = {
   github: "https://github.com/taisirhassan",
