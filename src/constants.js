@@ -32,20 +32,26 @@ export const PROJECTS = {
     {
       title: "Virtual SmartHome Dashboard",
       tech: "Python, Next.js, AWS, MQTT, Docker",
-      description: "IoT simulation platform with real-time analytics",
+      description: "IoT simulation platform with React dashboard and Go backend for data handling",
       repo: "https://github.com/taisirhassan/Smart-Home-Dashboard"
     },
     {
-      title: "ReadRight",
-      tech: "React, Express, GCP, Cohere API",
-      description: "HackThe6ix Winner: AI-powered reading assistance platform",
-      repo: "https://github.com/JustinScitech/ReadRight"
+      title: "RPM (Remote Process Monitor)",
+      tech: "QNX, C++, WebSockets, React",
+      description: "cuHacking 6 Winner: Process monitor interfacing with kernel-level APIs",
+      repo: "https://github.com/taisirhassan/rpm-monitor"
     },
     {
       title: "AudioViz",
       tech: "C++, OpenGL, FFT",
-      description: "Real-time audio visualization system",
+      description: "Real-time audio visualizer with multiple visualization styles and PortAudio",
       repo: "https://github.com/taisirhassan/audio_viz"
+    },
+    {
+      title: "CipherStream",
+      tech: "Rust, libp2p, Cryptography",
+      description: "P2P file transfer using libp2p with mDNS discovery and fault-tolerant architecture",
+      repo: "https://github.com/taisirhassan/cipher-stream"
     }
   ]
 }; 
