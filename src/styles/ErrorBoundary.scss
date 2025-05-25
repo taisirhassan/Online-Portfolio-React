@@ -44,5 +44,17 @@
       background: color.adjust($color-error, $lightness: -10%);
       transform: translateY(-2px);
     }
+
+    &:focus {
+      outline: 2px solid $color-primary;
+      outline-offset: 2px;
+      box-shadow: 0 0 0 4px rgba($color-primary, 0.3);
+      background: color.adjust($color-error, $lightness: -5%);
+    }
+
+    &:focus:not(:focus-visible) {
+      outline: none;
+      box-shadow: none;
+    }
   }
 } 

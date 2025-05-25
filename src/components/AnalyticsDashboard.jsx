@@ -10,9 +10,20 @@ const AnalyticsDashboard = () => {
 
   useEffect(() => {
     if (isOpen) {
-      const data = analytics.getSummary();
-      setSummary(data);
-      setEvents(data.events.slice(-10)); // Last 10 events
+      try {
+        const data = analytics.getSummary();
+        setSummary(data);
+        setEvents(data.events.slice(-10)); // Last 10 events
+      } catch (error) {
+        console.error('Failed to get analytics summary:', error);
+        // Set fallback data to prevent UI from breaking
+        setSummary({
+          sessionId: 'unknown',
+          eventsCount: 0,
+          timeSpent: 0
+        });
+        setEvents([]);
+      }
     }
   }, [isOpen]);
 
@@ -27,21 +38,7 @@ const AnalyticsDashboard = () => {
         onClick={() => setIsOpen(!isOpen)}
         whileHover={{ scale: 1.1 }}
         whileTap={{ scale: 0.9 }}
-        style={{
-          position: 'fixed',
-          bottom: '20px',
-          right: '20px',
-          zIndex: 9999,
-          background: '#22c55e',
-          color: 'white',
-          border: 'none',
-          borderRadius: '50%',
-          width: '50px',
-          height: '50px',
-          fontSize: '20px',
-          cursor: 'pointer',
-          boxShadow: '0 4px 10px rgba(0,0,0,0.3)'
-        }}
+        aria-label="Toggle Analytics Dashboard"
       >
         📊
       </motion.button>
@@ -50,93 +47,82 @@ const AnalyticsDashboard = () => {
       <AnimatePresence>
         {isOpen && (
           <motion.div
-            className="analytics-dashboard"
+            className="analytics-dashboard__panel"
             initial={{ opacity: 0, x: 300 }}
             animate={{ opacity: 1, x: 0 }}
             exit={{ opacity: 0, x: 300 }}
-            style={{
-              position: 'fixed',
-              top: '20px',
-              right: '20px',
-              width: '400px',
-              maxHeight: '80vh',
-              background: '#1a1a1a',
-              color: '#e2e8f0',
-              border: '1px solid #22c55e',
-              borderRadius: '8px',
-              padding: '20px',
-              zIndex: 9998,
-              overflow: 'auto',
-              fontFamily: 'monospace',
-              fontSize: '12px'
-            }}
+            transition={{ duration: 0.3, ease: "easeOut" }}
           >
-            <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '20px' }}>
-              <h3 style={{ color: '#22c55e', margin: 0 }}>📊 Analytics Dashboard</h3>
+            <div className="analytics-dashboard__header">
+              <h3 className="analytics-dashboard__title">📊 Analytics Dashboard</h3>
               <button
                 onClick={() => setIsOpen(false)}
-                style={{
-                  background: 'none',
-                  border: 'none',
-                  color: '#e2e8f0',
-                  fontSize: '16px',
-                  cursor: 'pointer'
-                }}
+                className="analytics-dashboard__close-btn"
+                aria-label="Close Analytics Dashboard"
               >
                 ✕
               </button>
             </div>
 
             {summary && (
-              <div style={{ marginBottom: '20px' }}>
-                <h4 style={{ color: '#22c55e', marginBottom: '10px' }}>Session Summary</h4>
-                <div style={{ background: '#262626', padding: '10px', borderRadius: '4px' }}>
-                  <div>Session ID: {summary.sessionId}</div>
-                  <div>Events Count: {summary.eventsCount}</div>
-                  <div>Time Spent: {summary.timeSpent}s</div>
+              <div className="analytics-dashboard__section">
+                <h4 className="analytics-dashboard__section-title">Session Summary</h4>
+                <div className="analytics-dashboard__summary-card">
+                  <div className="analytics-dashboard__summary-item">
+                    Session ID: {summary.sessionId}
+                  </div>
+                  <div className="analytics-dashboard__summary-item">
+                    Events Count: {summary.eventsCount}
+                  </div>
+                  <div className="analytics-dashboard__summary-item">
+                    Time Spent: {summary.timeSpent}s
+                  </div>
                 </div>
               </div>
             )}
 
-            <div>
-              <h4 style={{ color: '#22c55e', marginBottom: '10px' }}>Recent Events</h4>
-              <div style={{ maxHeight: '300px', overflow: 'auto' }}>
+            <div className="analytics-dashboard__section">
+              <h4 className="analytics-dashboard__section-title">Recent Events</h4>
+              <div className="analytics-dashboard__events-container">
                 {events.map((event, index) => (
                   <motion.div
                     key={event.id}
+                    className="analytics-dashboard__event-item"
                     initial={{ opacity: 0, y: 20 }}
                     animate={{ opacity: 1, y: 0 }}
                     transition={{ delay: index * 0.1 }}
-                    style={{
-                      background: '#262626',
-                      padding: '8px',
-                      marginBottom: '8px',
-                      borderRadius: '4px',
-                      fontSize: '11px'
-                    }}
                   >
-                    <div style={{ color: '#22c55e', fontWeight: 'bold' }}>
+                    <div className="analytics-dashboard__event-name">
                       {event.event}
                     </div>
-                    <div style={{ opacity: 0.7 }}>
+                    <div className="analytics-dashboard__event-time">
                       {new Date(event.properties.timestamp).toLocaleTimeString()}
                     </div>
                     {Object.keys(event.properties).length > 2 && (
-                      <details style={{ marginTop: '4px' }}>
-                        <summary style={{ cursor: 'pointer', color: '#86efac' }}>
-                          Properties
-                        </summary>
-                        <pre style={{ margin: '4px 0', fontSize: '10px', opacity: 0.8 }}>
+                      <details className="analytics-dashboard__event-properties">
+                        <summary>Properties</summary>
+                        <pre>
                           {JSON.stringify(event.properties, null, 2)}
                         </pre>
                       </details>
                     )}
                   </motion.div>
                 ))}
+                
+                {events.length === 0 && (
+                  <div className="analytics-dashboard__event-item">
+                    <div className="analytics-dashboard__event-name">
+                      No events yet
+                    </div>
+                    <div className="analytics-dashboard__event-time">
+                      Start interacting with the portfolio to see analytics data
+                    </div>
+                  </div>
+                )}
               </div>
             </div>
 
-            <div style={{ marginTop: '20px', fontSize: '10px', opacity: 0.7 }}>
+            <div className="analytics-dashboard__footer-note">
               💡 This dashboard only appears in development mode
             </div>
           </motion.div>

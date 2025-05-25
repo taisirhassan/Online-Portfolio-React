@@ -53,12 +53,12 @@ const App = () => {
   return (
     <ErrorBoundary>
       <Router>
-        <div className={`terminal ${isDarkMode ? "dark" : "light"}`} role="application">
-          <Suspense fallback={null}>
-            <MatrixRain isDarkMode={isDarkMode} />
-          </Suspense>
-
-                  <div className="terminal__container">
+      <div className={`terminal ${isDarkMode ? "dark" : "light"}`} role="application">
+        <Suspense fallback={null}>
+          <MatrixRain isDarkMode={isDarkMode} />
+        </Suspense>
+        
+        <div className="terminal__container">
           <Routes>
             <Route path="/" element={<HomePageWithProps />} />
             <Route path="/now" element={<NowPage />} />
@@ -67,8 +67,8 @@ const App = () => {
         
         <AnalyticsDashboard />
       </div>
-    </Router>
-  </ErrorBoundary>
+      </Router>
+    </ErrorBoundary>
   );
 };
 

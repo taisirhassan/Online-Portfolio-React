@@ -1,9 +1,9 @@
-import React from 'react';
+import React, { useMemo } from 'react';
 import { motion } from 'framer-motion';
 import '../styles/Skills.scss';
 
 const Skills = () => {
-  const skillCategories = [
+  const skillCategories = useMemo(() => [
     {
       title: "Programming Languages",
       skills: [
@@ -37,7 +37,7 @@ const Skills = () => {
         { name: "CAN Bus", level: 75 }
       ]
     }
-  ];
+  ], []); // Empty dependency array since this is static data
 
   return (
     <div className="skills">
@@ -66,7 +66,14 @@ const Skills = () => {
                     <span className="skills__name">{skill.name}</span>
                     <span className="skills__level">{skill.level}%</span>
                   </div>
-                  <div className="skills__bar">
+                  <div 
+                    className="skills__bar"
+                    role="progressbar"
+                    aria-valuemin={0}
+                    aria-valuemax={100}
+                    aria-valuenow={skill.level}
+                    aria-label={`${skill.name} skill level`}
+                  >
                     <motion.div
                       className="skills__progress"
                       initial={{ width: 0 }}

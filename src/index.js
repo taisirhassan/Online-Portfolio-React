@@ -15,10 +15,18 @@ ReactDOM.render(
 );
 
 // Initialize performance monitoring
-initPerformanceMonitoring();
+try {
+  initPerformanceMonitoring();
+} catch (error) {
+  console.error('Failed to initialize performance monitoring:', error);
+}
 
 // Initialize Netlify Analytics
-initNetlifyAnalytics();
+try {
+  initNetlifyAnalytics();
+} catch (error) {
+  console.error('Failed to initialize Netlify Analytics:', error);
+}
 
 // If you want to start measuring performance in your app, pass a function
 // to log results (for example: reportWebVitals(console.log))

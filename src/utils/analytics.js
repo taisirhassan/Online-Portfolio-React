@@ -7,6 +7,7 @@ class Analytics {
     this.sessionId = this.generateSessionId();
     this.startTime = Date.now();
     this.events = [];
+    this.maxEvents = 200; // Maximum number of events to keep in memory
     
     if (this.isEnabled) {
       this.init();
@@ -37,6 +38,18 @@ class Analytics {
            Math.random().toString(36).substring(2, 15);
   }
 
+  trimEventsArray() {
+    // Keep only the most recent events to prevent memory bloat
+    if (this.events.length > this.maxEvents) {
+      const eventsToRemove = this.events.length - this.maxEvents;
+      this.events.splice(0, eventsToRemove); // Remove oldest events from the beginning
+      
+      if (config.isDevelopment) {
+        console.log(`📊 Analytics: Trimmed ${eventsToRemove} old events. Current count: ${this.events.length}`);
+      }
+    }
+  }
+
   trackEvent(eventName, properties = {}) {
     if (!this.isEnabled) return;
 
@@ -56,6 +69,9 @@ class Analytics {
     };
 
     this.events.push(event);
+
+    // Trim events array to prevent memory bloat
+    this.trimEventsArray();
 
     // Send to Netlify Analytics (if available)
     if (window.netlifyAnalytics) {
@@ -84,9 +100,20 @@ class Analytics {
     const tracked = new Set();
 
     const trackScroll = () => {
-      const scrollPercent = Math.round(
-        (window.scrollY / (document.documentElement.scrollHeight - window.innerHeight)) * 100
-      );
+      // Calculate scroll percentage with division by zero protection
+      const scrollHeight = document.documentElement.scrollHeight;
+      const windowHeight = window.innerHeight;
+      const scrollableHeight = scrollHeight - windowHeight;
+      
+      let scrollPercent;
+      if (scrollableHeight <= 0) {
+        // No scrollable content or content shorter than viewport
+        scrollPercent = 100; // Consider it fully scrolled
+      } else {
+        scrollPercent = Math.round((window.scrollY / scrollableHeight) * 100);
+        // Ensure scrollPercent is within valid range
+        scrollPercent = Math.min(Math.max(scrollPercent, 0), 100);
+      }
       
       maxScroll = Math.max(maxScroll, scrollPercent);
 
@@ -185,7 +212,7 @@ class Analytics {
   throttle(func, delay) {
     let timeoutId;
     let lastExecTime = 0;
-    return function (...args) {
+    return (...args) => {
       const currentTime = Date.now();
       
       if (currentTime - lastExecTime > delay) {
@@ -224,8 +251,10 @@ class Analytics {
     return {
       sessionId: this.sessionId,
       eventsCount: this.events.length,
+      maxEvents: this.maxEvents,
       timeSpent: Math.round((Date.now() - this.startTime) / 1000),
-      events: this.events
+      events: this.events,
+      memoryManaged: this.events.length === this.maxEvents ? 'Array at capacity (trimming active)' : 'Within limits'
     };
   }
 }

@@ -1,5 +1,6 @@
 import React from 'react';
 import { track } from '../utils/analytics';
+import '../styles/ErrorBoundary.scss';
 
 class ErrorBoundary extends React.Component {
   constructor(props) {

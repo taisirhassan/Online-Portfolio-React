@@ -23,8 +23,14 @@ const BootSequence = ({ onComplete }) => {
         setCurrentStep(prev => prev + 1);
         if (currentStep === bootSteps.length - 1) {
           setTimeout(() => {
-            track.bootComplete();
-            onComplete();
+            try {
+              track.bootComplete();
+            } catch (error) {
+              console.error('Failed to track boot completion:', error);
+            } finally {
+              // Ensure onComplete is always called regardless of tracking errors
+              onComplete();
+            }
           }, 1000);
         }
       }, bootSteps[currentStep].delay);
