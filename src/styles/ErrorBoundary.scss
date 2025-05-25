@@ -1,0 +1,48 @@
+@use 'sass:color';
+@use 'variables' as *;
+
+.error-boundary {
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: $color-bg-dark;
+  color: $color-text-dark;
+  font-family: $font-mono;
+
+  &__container {
+    text-align: center;
+    padding: 2rem;
+    border: 1px solid $color-error;
+    border-radius: $border-radius;
+    background: rgba($color-error, 0.1);
+    max-width: 500px;
+  }
+
+  &__title {
+    font-size: 2rem;
+    margin-bottom: 1rem;
+    color: $color-error;
+  }
+
+  &__message {
+    margin-bottom: 2rem;
+    opacity: 0.8;
+  }
+
+  &__button {
+    background: $color-error;
+    color: white;
+    border: none;
+    padding: 0.75rem 1.5rem;
+    border-radius: $border-radius;
+    font-family: $font-mono;
+    cursor: pointer;
+    transition: all $transition-speed $transition-timing;
+
+    &:hover {
+      background: color.adjust($color-error, $lightness: -10%);
+      transform: translateY(-2px);
+    }
+  }
+} 

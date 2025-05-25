@@ -1,6 +1,7 @@
 import React, { useState, useEffect, useMemo } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import TypeWriter from './TypeWriter';
+import { track } from '../utils/analytics';
 import '../styles/main.scss';
 
 const BootSequence = ({ onComplete }) => {
@@ -21,7 +22,10 @@ const BootSequence = ({ onComplete }) => {
       const timer = setTimeout(() => {
         setCurrentStep(prev => prev + 1);
         if (currentStep === bootSteps.length - 1) {
-          setTimeout(onComplete, 1000);
+          setTimeout(() => {
+            track.bootComplete();
+            onComplete();
+          }, 1000);
         }
       }, bootSteps[currentStep].delay);
       

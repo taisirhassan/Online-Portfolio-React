@@ -3,6 +3,9 @@ import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import Navigation from "./components/Navigation";
 import HomePage from "./pages/HomePage";
 import NowPage from "./pages/NowPage";
+import ErrorBoundary from "./components/ErrorBoundary";
+import Loading from "./components/Loading";
+import AnalyticsDashboard from "./components/AnalyticsDashboard";
 import { SOCIAL_LINKS } from "./constants";
 import "./App.css";
 import "./styles/main.scss";
@@ -17,9 +20,11 @@ const App = () => {
 
   if (!isBooted) {
     return (
-      <Suspense fallback={<div>Loading...</div>}>
-        <BootSequence onComplete={() => setIsBooted(true)} />
-      </Suspense>
+      <ErrorBoundary>
+        <Suspense fallback={<Loading />}>
+          <BootSequence onComplete={() => setIsBooted(true)} />
+        </Suspense>
+      </ErrorBoundary>
     );
   }
 
@@ -46,20 +51,24 @@ const App = () => {
   );
 
   return (
-    <Router>
-      <div className={`terminal ${isDarkMode ? "dark" : "light"}`} role="application">
-        <Suspense fallback={null}>
-          <MatrixRain isDarkMode={isDarkMode} />
-        </Suspense>
+    <ErrorBoundary>
+      <Router>
+        <div className={`terminal ${isDarkMode ? "dark" : "light"}`} role="application">
+          <Suspense fallback={null}>
+            <MatrixRain isDarkMode={isDarkMode} />
+          </Suspense>
 
-        <div className="terminal__container">
+                  <div className="terminal__container">
           <Routes>
             <Route path="/" element={<HomePageWithProps />} />
             <Route path="/now" element={<NowPage />} />
           </Routes>
         </div>
+        
+        <AnalyticsDashboard />
       </div>
     </Router>
+  </ErrorBoundary>
   );
 };
 

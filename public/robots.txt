@@ -1,3 +1,23 @@
 # https://www.robotstxt.org/robotstxt.html
 User-agent: *
-Disallow:
+Allow: /
+
+# Sitemaps
+Sitemap: https://taisirhassan.netlify.app/sitemap.xml
+
+# Specific rules for search engines
+User-agent: Googlebot
+Allow: /
+Crawl-delay: 1
+
+User-agent: Bingbot
+Allow: /
+Crawl-delay: 1
+
+# Disallow certain paths (if any)
+# Disallow: /private/
+
+# Allow access to CSS and JS files
+Allow: /static/
+Allow: /*.css$
+Allow: /*.js$

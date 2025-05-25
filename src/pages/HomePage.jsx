@@ -2,6 +2,7 @@ import React from "react";
 import { Link } from "react-router-dom";
 import ContentSection from "../components/ContentSection";
 import ProjectCard from "../components/ProjectCard";
+import Skills from "../components/Skills";
 import Contact from "../components/Contact";
 import { Github, Linkedin, Globe } from "lucide-react";
 import { experiences } from "../data/experiences";
@@ -52,13 +53,14 @@ const HomePage = ({ isDarkMode, toggleDarkMode }) => {
               target="_blank"
               rel="noopener noreferrer"
               aria-label="Download resume"
+              data-track="resume_download"
             >
               Download Resume
             </a>
-            <a href="#contact" className="about__button" aria-label="Go to contact section">
+            <a href="#contact" className="about__button" aria-label="Go to contact section" data-track="contact_button">
               Contact Me
             </a>
-            <Link to="/now" className="about__button" aria-label="See what I'm working on now">
+            <Link to="/now" className="about__button" aria-label="See what I'm working on now" data-track="now_page">
               What I'm Doing Now
             </Link>
           </div>
@@ -110,6 +112,10 @@ const HomePage = ({ isDarkMode, toggleDarkMode }) => {
             ))}
           </div>
         </div>
+      </ContentSection>
+
+      <ContentSection id="skills" title="skills">
+        <Skills />
       </ContentSection>
 
       <Contact />

@@ -6,19 +6,24 @@ const MatrixRain = ({ isDarkMode }) => {
 
   useEffect(() => {
     const canvas = canvasRef.current;
+    if (!canvas) return;
+    
     const ctx = canvas.getContext('2d');
+    let drops = [];
 
     const resizeCanvas = () => {
       canvas.width = window.innerWidth;
       canvas.height = window.innerHeight;
+      // Recalculate drops when canvas resizes
+      const columns = Math.floor(canvas.width / fontSize);
+      drops = new Array(columns).fill(1);
     };
-    resizeCanvas();
-    window.addEventListener('resize', resizeCanvas);
-
+    
     const chars = 'アイウエオカキクケコサシスセソタチツテトナニヌネノハヒフヘホマミムメモヤユヨラリルレロワヲン0123456789♔⚡';
     const fontSize = 16;
-    const columns = canvas.width / fontSize;
-    const drops = new Array(Math.floor(columns)).fill(1);
+    
+    resizeCanvas();
+    window.addEventListener('resize', resizeCanvas);
 
     const colors = isDarkMode
       ? ['#22c55e', '#16a34a', '#86efac']

@@ -3,6 +3,7 @@ import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { Sun, Moon } from 'lucide-react';
 import { motion, AnimatePresence } from 'framer-motion';
+import { track } from '../utils/analytics';
 import '../styles/Navigation.scss';
 
 const Navigation = ({ isDarkMode, toggleDarkMode }) => {
@@ -18,6 +19,9 @@ const Navigation = ({ isDarkMode, toggleDarkMode }) => {
   }, []);
 
   const handleScrollToSection = (id) => {
+    // Track navigation
+    track.navigation(id);
+    
     if (id === 'now') {
       navigate('/now');
       return;
@@ -33,6 +37,7 @@ const Navigation = ({ isDarkMode, toggleDarkMode }) => {
     { id: 'about', label: 'View personal information' },
     { id: 'now', label: 'View what I\'m currently doing' },
     { id: 'experience', label: 'View work experience' },
+    { id: 'skills', label: 'View technical skills' },
     { id: 'hardware', label: 'View hardware projects' },
     { id: 'software', label: 'View software projects' },
     { id: 'contact', label: 'View contact information' }
@@ -49,7 +54,10 @@ const Navigation = ({ isDarkMode, toggleDarkMode }) => {
         <span className="terminal-nav__prompt">_taisir@portfolio:~</span>
         <div className="terminal-nav__actions">
           <motion.button 
-            onClick={toggleDarkMode}
+            onClick={() => {
+              track.themeToggle(isDarkMode ? 'light' : 'dark');
+              toggleDarkMode();
+            }}
             className="terminal-nav__theme-toggle"
             aria-label="Toggle theme"
             whileHover={{ scale: 1.1 }}

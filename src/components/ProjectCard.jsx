@@ -1,6 +1,7 @@
 import React from 'react';
 import { motion } from 'framer-motion';
 import { Github } from 'lucide-react';
+import { track } from '../utils/analytics';
 import '../styles/ProjectCard.scss';
 
 const ProjectCard = ({ title, tech, description, repo }) => (
@@ -11,6 +12,7 @@ const ProjectCard = ({ title, tech, description, repo }) => (
     transition={{ duration: 0.5 }}
     whileHover={{ y: -5 }}
     whileTap={{ scale: 0.98 }}
+    onClick={() => track.projectView(title)}
   >
     <div className="project-card__content">
       <div className="project-card__header">
