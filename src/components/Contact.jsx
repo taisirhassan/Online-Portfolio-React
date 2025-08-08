@@ -1,5 +1,5 @@
 import React from 'react';
-import { Mail, Phone, Github, Linkedin } from 'lucide-react';
+import { Mail, Phone, Github, Linkedin, Copy } from 'lucide-react';
 
 const Contact = () => {
   return (
@@ -9,12 +9,20 @@ const Contact = () => {
       <div className="contact__content">
         <div className="contact__item">
           <Mail className="contact__icon" />
-          <span>taisir.hassan@uwaterloo.ca</span>
+          <a href="mailto:taisir.hassan@uwaterloo.ca">taisir.hassan@uwaterloo.ca</a>
+          <button
+            className="contact__copy"
+            aria-label="Copy email address"
+            onClick={() => navigator.clipboard?.writeText('taisir.hassan@uwaterloo.ca')}
+            title="Copy"
+          >
+            <Copy size={16} />
+          </button>
         </div>
 
         <div className="contact__item">
           <Phone className="contact__icon" />
-          <span>647-667-3006</span>
+          <a href="tel:+16476673006">647-667-3006</a>
         </div>
 
         <div className="contact__social">

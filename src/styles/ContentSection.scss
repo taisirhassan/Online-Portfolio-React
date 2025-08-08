@@ -3,6 +3,7 @@
 .content-section {
     margin-bottom: 4rem;
     animation: fadeIn 0.5s ease-in-out;
+    scroll-margin-top: 88px; // leave space for sticky nav
 
     &__header {
         display: flex;
@@ -10,7 +11,46 @@
         gap: 0.5rem;
         margin-bottom: 1.5rem;
         padding-bottom: 0.5rem;
-        border-bottom: 1px solid rgba($color-primary, 0.2);
+        border-bottom: 1px dashed rgba($color-primary, 0.35);
+        position: relative;
+        overflow: hidden;
+
+        &::after {
+            content: '';
+            position: absolute;
+            left: 0;
+            bottom: 0;
+            width: 140%;
+            height: 1px;
+            background: repeating-linear-gradient(90deg, rgba($color-primary, 0.4) 0 8px, transparent 8px 16px);
+            transform: translateX(-20%);
+            opacity: 0.3;
+        }
+
+        .glitch {
+            position: relative;
+            display: inline-block;
+        }
+
+        .glitch::before,
+        .glitch::after {
+            content: attr(data-text);
+            position: absolute;
+            left: 0;
+            top: 0;
+            opacity: 0.6;
+            mix-blend-mode: screen;
+            filter: blur(0.2px);
+            pointer-events: none;
+        }
+
+        .glitch::before { color: #22c55e; transform: translate(0.5px, 0.5px); }
+        .glitch::after { color: #7c3aed; transform: translate(-0.5px, -0.5px); }
+
+        @media (prefers-reduced-motion: reduce) {
+            .glitch::before,
+            .glitch::after { transform: none; opacity: 0.3; }
+        }
     }
 
     &__content {

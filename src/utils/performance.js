@@ -1,4 +1,4 @@
-import { getCLS, getFID, getFCP, getLCP, getTTFB } from 'web-vitals';
+import { onCLS, onINP, onFCP, onLCP, onTTFB } from 'web-vitals';
 import { analytics } from './analytics';
 import { config } from '../config/environment';
 
@@ -58,11 +58,11 @@ const sendToAnalytics = (metric) => {
 
 // Initialize performance monitoring
 export const initPerformanceMonitoring = () => {
-  getCLS(sendToAnalytics);
-  getFID(sendToAnalytics);
-  getFCP(sendToAnalytics);
-  getLCP(sendToAnalytics);
-  getTTFB(sendToAnalytics);
+  onCLS(sendToAnalytics);
+  onINP(sendToAnalytics);
+  onFCP(sendToAnalytics);
+  onLCP(sendToAnalytics);
+  onTTFB(sendToAnalytics);
 };
 
 // Custom performance markers

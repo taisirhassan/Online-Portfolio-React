@@ -10,6 +10,7 @@ const MatrixRain = ({ isDarkMode }) => {
     
     const ctx = canvas.getContext('2d');
     let drops = [];
+    const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
 
     const resizeCanvas = () => {
       canvas.width = window.innerWidth;
@@ -47,7 +48,7 @@ const MatrixRain = ({ isDarkMode }) => {
         if (drop * fontSize > canvas.height && Math.random() > 0.975) {
           drops[i] = 0;
         }
-        drops[i]++;
+        drops[i] += prefersReducedMotion ? 0.5 : 1;
       });
 
       animationFrameId = requestAnimationFrame(draw);

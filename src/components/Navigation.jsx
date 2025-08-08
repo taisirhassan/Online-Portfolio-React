@@ -1,13 +1,15 @@
 // src/components/Navigation.jsx
 import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { Sun, Moon } from 'lucide-react';
+import { Sun, Moon, Menu, X, Terminal } from 'lucide-react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { track } from '../utils/analytics';
 import '../styles/Navigation.scss';
 
 const Navigation = ({ isDarkMode, toggleDarkMode }) => {
   const [currentTime, setCurrentTime] = useState(new Date().toLocaleTimeString([], { hour12: false }));
+  const [activeSection, setActiveSection] = useState('about');
+  const [menuOpen, setMenuOpen] = useState(false);
   const navigate = useNavigate();
 
   useEffect(() => {
@@ -16,6 +18,36 @@ const Navigation = ({ isDarkMode, toggleDarkMode }) => {
     }, 1000);
 
     return () => clearInterval(timer);
+  }, []);
+
+  useEffect(() => {
+    const idsToObserve = ['about', 'experience', 'skills', 'hardware', 'software', 'contact'];
+    const elements = idsToObserve
+      .map((id) => document.getElementById(id))
+      .filter(Boolean);
+
+    if (elements.length === 0) return;
+
+    const observer = new IntersectionObserver(
+      (entries) => {
+        // Sort entries by intersection ratio to pick the most visible
+        const visible = entries
+          .filter((e) => e.isIntersecting)
+          .sort((a, b) => b.intersectionRatio - a.intersectionRatio);
+        if (visible[0]?.target?.id) {
+          setActiveSection(visible[0].target.id);
+        }
+      },
+      {
+        root: null,
+        threshold: [0.35, 0.6, 0.85],
+        rootMargin: '0px 0px -40% 0px',
+      }
+    );
+
+    elements.forEach((el) => observer.observe(el));
+
+    return () => observer.disconnect();
   }, []);
 
   const handleScrollToSection = (id) => {
@@ -31,6 +63,7 @@ const Navigation = ({ isDarkMode, toggleDarkMode }) => {
     if (element) {
       element.scrollIntoView({ behavior: 'smooth' });
     }
+    setMenuOpen(false);
   };
 
   const commands = [
@@ -50,9 +83,34 @@ const Navigation = ({ isDarkMode, toggleDarkMode }) => {
       animate={{ y: 0 }}
       transition={{ duration: 0.5, ease: "easeOut" }}
     >
+      <a href="#about" className="skip-link">Skip to content</a>
       <div className="terminal-nav__header">
         <span className="terminal-nav__prompt">_taisir@portfolio:~</span>
         <div className="terminal-nav__actions">
+          <motion.button
+            onClick={() => setMenuOpen(!menuOpen)}
+            className="terminal-nav__menu-toggle"
+            aria-label="Toggle menu"
+            aria-expanded={menuOpen}
+            whileHover={{ scale: 1.1 }}
+            whileTap={{ scale: 0.95 }}
+          >
+            {menuOpen ? <X size={18} /> : <Menu size={18} />}
+          </motion.button>
+          <motion.a
+            href="#open-terminal"
+            onClick={(e) => {
+              e.preventDefault();
+              const evt = new CustomEvent('toggle-terminal');
+              window.dispatchEvent(evt);
+            }}
+            className="terminal-nav__terminal-toggle"
+            aria-label="Toggle terminal overlay (Ctrl/Cmd+K)"
+            whileHover={{ scale: 1.1 }}
+            whileTap={{ scale: 0.95 }}
+          >
+            <Terminal size={16} />
+          </motion.a>
           <motion.button 
             onClick={() => {
               track.themeToggle(isDarkMode ? 'light' : 'dark');
@@ -93,7 +151,7 @@ const Navigation = ({ isDarkMode, toggleDarkMode }) => {
         </div>
       </div>
 
-      <div className="terminal-nav__help">
+      <div className={`terminal-nav__help ${menuOpen ? 'is-open' : ''}`}>
         <div className="terminal-nav__help-text">
           &gt; Type 'help' for available commands:
         </div>
@@ -108,7 +166,8 @@ const Navigation = ({ isDarkMode, toggleDarkMode }) => {
             >
               <motion.button 
                 onClick={() => handleScrollToSection(command.id)}
-                className="terminal-nav__command-btn"
+                className={`terminal-nav__command-btn ${activeSection === command.id ? 'is-active' : ''}`}
+                aria-current={activeSection === command.id ? 'page' : undefined}
                 whileHover={{ x: 5 }}
                 whileTap={{ scale: 0.98 }}
               >

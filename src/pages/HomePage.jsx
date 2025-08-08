@@ -2,6 +2,7 @@ import React from "react";
 import { Link } from "react-router-dom";
 import ContentSection from "../components/ContentSection";
 import ProjectCard from "../components/ProjectCard";
+import LazySection from "../components/LazySection";
 import Skills from "../components/Skills";
 import Contact from "../components/Contact";
 import { Github, Linkedin, Globe } from "lucide-react";
@@ -21,6 +22,19 @@ const HomePage = ({ isDarkMode, toggleDarkMode }) => {
             Currently @ Telesat - Embedded Software Engineer
           </p>
 
+          <div className="about__badges" role="list">
+            {[
+              "C/C++",
+              "Python",
+              "React",
+              "Verilog/SystemVerilog",
+              "RISC-V",
+              "ROS2"
+            ].map((b) => (
+              <span key={b} className="about__badge">{b}</span>
+            ))}
+          </div>
+
           <div className="about__links" role="list">
             <a
               href={SOCIAL_LINKS.github}
@@ -34,7 +48,7 @@ const HomePage = ({ isDarkMode, toggleDarkMode }) => {
               className="about__link"
               aria-label="Visit LinkedIn profile"
             >
-              <Linkedin size={20} aria-hidden="true" /> LinkedIn
+            <Linkedin size={20} aria-hidden="true" /> LinkedIn
             </a>
             <a
               href={SOCIAL_LINKS.portfolio}
@@ -47,22 +61,31 @@ const HomePage = ({ isDarkMode, toggleDarkMode }) => {
 
           <div className="about__buttons" role="list">
             <a
-              href={`/${RESUME_FILENAME}`}
+              href="mailto:taisir.hassan@uwaterloo.ca"
               className="about__button"
-              download
-              target="_blank"
-              rel="noopener noreferrer"
-              aria-label="Download resume"
-              data-track="resume_download"
+              aria-label="Send me an email"
+              data-track="contact_button"
             >
-              Download Resume
-            </a>
-            <a href="#contact" className="about__button" aria-label="Go to contact section" data-track="contact_button">
               Contact Me
             </a>
             <Link to="/now" className="about__button" aria-label="See what I'm working on now" data-track="now_page">
               What I'm Doing Now
             </Link>
+          </div>
+
+          <div className="resume-card">
+            <div className="resume-card__content">
+              <div className="resume-card__title">Resume</div>
+              <div className="resume-card__subtitle">Quick access</div>
+            </div>
+            <div className="resume-card__actions">
+              <a href={`/${RESUME_FILENAME}`} target="_blank" rel="noopener noreferrer" className="resume-card__btn resume-card__btn--primary">
+                Open
+              </a>
+              <a href={`/${RESUME_FILENAME}`} download className="resume-card__btn">
+                Download
+              </a>
+            </div>
           </div>
         </div>
       </ContentSection>
@@ -81,6 +104,7 @@ const HomePage = ({ isDarkMode, toggleDarkMode }) => {
       </ContentSection>
 
       <ContentSection id="projects" title="projects">
+        <LazySection>
         <div className="projects-grid">
           <h2 className="projects-grid__title" id="hardware">
             Hardware Projects
@@ -112,10 +136,13 @@ const HomePage = ({ isDarkMode, toggleDarkMode }) => {
             ))}
           </div>
         </div>
+        </LazySection>
       </ContentSection>
 
       <ContentSection id="skills" title="skills">
-        <Skills />
+        <LazySection>
+          <Skills />
+        </LazySection>
       </ContentSection>
 
       <Contact />

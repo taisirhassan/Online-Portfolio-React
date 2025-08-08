@@ -4,7 +4,13 @@ import { Github } from 'lucide-react';
 import { track } from '../utils/analytics';
 import '../styles/ProjectCard.scss';
 
-const ProjectCard = ({ title, tech, description, repo }) => (
+const ProjectCard = ({ title, tech, description, repo }) => {
+  const techBadges = (tech || '')
+    .split(',')
+    .map((t) => t.trim())
+    .filter(Boolean);
+
+  return (
   <motion.div 
     className="project-card"
     initial={{ opacity: 0, y: 20 }}
@@ -18,13 +24,19 @@ const ProjectCard = ({ title, tech, description, repo }) => (
       <div className="project-card__header">
         <h3 className="project-card__title">{title}</h3>
       </div>
-      <div className="project-card__tech">{tech}</div>
+      {techBadges.length > 0 && (
+        <div className="project-card__badges">
+          {techBadges.map((badge) => (
+            <span key={badge} className="project-card__badge">{badge}</span>
+          ))}
+        </div>
+      )}
       <div className="project-card__description">{description}</div>
     </div>
-    {repo && (
+      {repo && (
       <motion.div 
         className="project-card__footer"
-        whileHover={{ scale: 1.05 }}
+          whileHover={{ scale: 1.05 }}
       >
         <a 
           href={repo} 
@@ -32,7 +44,9 @@ const ProjectCard = ({ title, tech, description, repo }) => (
           target="_blank"
           rel="noopener noreferrer"
           aria-label={`View ${title} on GitHub`}
-          onClick={(e) => e.stopPropagation()}
+            onClick={(e) => e.stopPropagation()}
+            onMouseDown={(e) => e.stopPropagation()}
+            onTouchStart={(e) => e.stopPropagation()}
         >
           <motion.div
             whileHover={{ rotate: -45 }}
@@ -45,7 +59,8 @@ const ProjectCard = ({ title, tech, description, repo }) => (
       </motion.div>
     )}
   </motion.div>
-);
+  );
+};
 
 export default ProjectCard;
 

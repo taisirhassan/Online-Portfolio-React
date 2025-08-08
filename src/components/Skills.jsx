@@ -39,6 +39,14 @@ const Skills = () => {
     }
   ], []); // Empty dependency array since this is static data
 
+  const levelToLabel = (level) => {
+    if (level >= 90) return 'Expert';
+    if (level >= 80) return 'Advanced';
+    if (level >= 70) return 'Proficient';
+    if (level >= 60) return 'Intermediate';
+    return 'Familiar';
+  };
+
   return (
     <div className="skills">
       <div className="skills__command">$ cat technical_skills.txt</div>
@@ -64,26 +72,7 @@ const Skills = () => {
                 >
                   <div className="skills__item-header">
                     <span className="skills__name">{skill.name}</span>
-                    <span className="skills__level">{skill.level}%</span>
-                  </div>
-                  <div 
-                    className="skills__bar"
-                    role="progressbar"
-                    aria-valuemin={0}
-                    aria-valuemax={100}
-                    aria-valuenow={skill.level}
-                    aria-label={`${skill.name} skill level`}
-                  >
-                    <motion.div
-                      className="skills__progress"
-                      initial={{ width: 0 }}
-                      animate={{ width: `${skill.level}%` }}
-                      transition={{ 
-                        delay: (categoryIndex * 0.2) + (skillIndex * 0.1) + 0.3,
-                        duration: 0.8,
-                        ease: "easeOut"
-                      }}
-                    />
+                    <span className="skills__tag">{levelToLabel(skill.level)}</span>
                   </div>
                 </motion.div>
               ))}

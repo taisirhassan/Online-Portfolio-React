@@ -1,7 +1,8 @@
-// Environment configuration
-const isDevelopment = process.env.NODE_ENV === 'development';
-const isProduction = process.env.NODE_ENV === 'production';
-const isTest = process.env.NODE_ENV === 'test';
+// Environment configuration (Vite)
+const mode = import.meta.env.MODE;
+const isDevelopment = mode === 'development';
+const isProduction = mode === 'production';
+const isTest = mode === 'test';
 
 export const config = {
   isDevelopment,
@@ -10,14 +11,14 @@ export const config = {
   
   // API configuration
   api: {
-    baseUrl: process.env.REACT_APP_API_URL || 'http://localhost:3001',
+    baseUrl: import.meta.env.VITE_API_URL || 'http://localhost:3001',
     timeout: 10000,
   },
   
   // Analytics configuration
   analytics: {
     enabled: isProduction,
-    gaTrackingId: process.env.REACT_APP_GA_TRACKING_ID,
+    gaTrackingId: import.meta.env.VITE_GA_TRACKING_ID,
   },
   
   // Performance monitoring

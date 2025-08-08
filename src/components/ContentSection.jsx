@@ -13,7 +13,9 @@ const ContentSection = ({ id, title, children }) => (
   >
     <div className="content-section__header">
       <span className="content-section__prompt">$</span>
-      <TypeWriter text={`cat ${title}.txt`} delay={30} />
+      <span className="glitch" data-text={`cat ${title}.txt`}>
+        <TypeWriter text={`cat ${title}.txt`} delay={30} />
+      </span>
     </div>
     <motion.div 
       className="content-section__content"

@@ -3,9 +3,9 @@ $color-bg-dark: #1a1a1a;
 $color-bg-light: #ffffff;
 $color-text-dark: #e2e8f0;
 $color-text-light: #1e293b;
-$color-primary: #22c55e;
-$color-secondary: #7c3aed;
-$color-accent: #0284c7;
+$color-primary: #22c55e; // primary brand green
+$color-secondary: #7c3aed; // purple accent
+$color-accent: #0ea5e9; // brighter cyan for light mode accents
 $color-error: #ef4444;
 
 // Dark mode specific
@@ -33,7 +33,7 @@ $breakpoint-xl: 1280px;
 // Colors
 $color-primary: #22c55e; // Bright green
 $color-secondary: #86efac; // Softer green
-$color-background: #1e293b; // Deep navy
+$color-background: #0b1220; // Deep navy/ink
 
 // Transitions
 $transition-speed: 0.3s;
