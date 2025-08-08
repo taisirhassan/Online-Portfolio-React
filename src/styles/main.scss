@@ -665,7 +665,7 @@ body {
             border-radius: inherit;
             padding: 1px;
             background: conic-gradient(from 0deg, transparent 0deg, rgba($color-primary, 0.6) 120deg, transparent 240deg);
-            -webkit-mask:
+            mask:
               linear-gradient(#000 0 0) content-box,
               linear-gradient(#000 0 0);
             -webkit-mask-composite: xor;
